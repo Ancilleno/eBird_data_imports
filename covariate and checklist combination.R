@@ -222,5 +222,53 @@ allGBChecklists1988_2016$landcover<- #add a column called landcover to the check
     match #The match function selects rows in one dataframe that match the rows in another data frame
                                     (allGBChecklists1988_2016$`SAMPLING EVENT IDENTIFIER`,#find samling events in the checklist data
                                       covariates2002_2016$SAMPLING_EVENT_ID)]#Find matching sampling events in the covariate data
-allGBChecklists1988_2016 #checklist data now has an additional column called landcover
+
+allGBChecklists1988_2016$landcoverYR<- #add a column called landcover to the checklist data
+  covariates2002_2016$YEAR[ #Use the rows in the Year value from the covariate data 
+    match #The match function selects rows in one dataframe that match the rows in another data frame
+    (allGBChecklists1988_2016$`SAMPLING EVENT IDENTIFIER`,#find sampling events in the checklist data
+      covariates2002_2016$SAMPLING_EVENT_ID)]#Find matching sampling events in the covariate data
+
+allGBChecklists1988_2016 #checklist data now has additional columns called landcover and landcoverYR
 write_csv(allGBChecklists1988_2016, "allGBChecklists1988_2016.csv")
+
+# #filter for desired variables --------
+ebirdGB2016<-data.frame(allGBChecklists1988_2016$LOCALITY,
+                        allGBChecklists1988_2016$`LOCALITY ID`,
+                        allGBChecklists1988_2016$LATITUDE,
+                        allGBChecklists1988_2016$LONGITUDE,
+                        allGBChecklists1988_2016$`SAMPLING EVENT IDENTIFIER`,
+                        allGBChecklists1988_2016$`OBSERVATION DATE`,
+                        allGBChecklists1988_2016$`OBSERVATION COUNT`,
+                        allGBChecklists1988_2016$`TIME OBSERVATIONS STARTED`,
+                        allGBChecklists1988_2016$`DURATION MINUTES`,
+                        allGBChecklists1988_2016$`OBSERVER ID`,
+                        allGBChecklists1988_2016$`FIRST NAME`,
+                        allGBChecklists1988_2016$`LAST NAME`,
+                        allGBChecklists1988_2016$`COMMON NAME`,
+                        allGBChecklists1988_2016$`SCIENTIFIC NAME`,
+                        allGBChecklists1988_2016$landcover,
+                        allGBChecklists1988_2016$landcoverYR)
+
+# rename columns to match variable names ----------------------------------
+
+#create vector of variable names
+variables<-c('locality',
+             'LOCID',
+             'Latitude',
+             'Longitude',
+             'Survey',
+             'Date',
+             'Count',
+             'Time',
+             'Duration',
+             'OBSID',
+             'FirstName',
+             'LastName',
+             'Comname',
+             'Sciname',
+             'Landcover',
+             'LandcoverYR')
+#rename the columns using the variable names
+colnames(ebirdGB2016)<-variables
+colnames(ebirdGB2016)
