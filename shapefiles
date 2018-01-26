@@ -1,0 +1,39 @@
+#This code is used to import shapefiles into R for use in spatial analysis
+#The code was developed by Ancilleno Davis 
+#in partial fulfilment of the requirements for the PhD in Ecology, Evolution and Environmental Biology 
+#at Miami University in Oxford, Ohio
+
+
+require(rgdal)
+
+# Define Grand Bahama Terrestrial Area using Shapefile --------------------
+#A Shapefile polygon outlining the Grand Bahama Contiguous terrestrial area was created using ArcGIS 10.5 by Ancilleno Davis
+# The file has the following characteristics
+# Data Type:	Shapefile Feature Class 
+# Shapefile:	C:\Users\davisao2\Desktop\ArcGIS map data\My maps\layer packages\Grand_Bahama_Outline.shp
+# Geometry Type:	Polygon
+# Coordinates have Z values:	No 
+# Coordinates have measures:	No 
+# 
+# Projected Coordinate System:	WGS_1984_Web_Mercator_Auxiliary_Sphere
+# Projection:	Mercator_Auxiliary_Sphere
+# False_Easting:	0.00000000
+# False_Northing:	0.00000000
+# Central_Meridian:	0.00000000
+# Standard_Parallel_1:	0.00000000
+# Auxiliary_Sphere_Type:	0.00000000
+# Linear Unit: 	Meter
+# 
+# Geographic Coordinate System:	GCS_WGS_1984
+# Datum: 	D_WGS_1984
+# Prime Meridian: 	Greenwich
+# Angular Unit: 	Degree
+#you can download the file from the attached repository.
+#ensure that you point to the folder containign all the shape file information not just the .shp
+
+setwd("C:/Users/davisao2/Desktop/open source GIS/eBird r code/GB contiguous")
+
+GBcontiguous<-readOGR(dsn=".", layer="GrandBahamaTerrestrialarea")
+plot(GBcontiguous)
+
+
